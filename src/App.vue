@@ -1,32 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="navbar">
+      <router-link to="/">Home</router-link>
+      <router-link to="/register" v-if="$store.state.member === null">Register</router-link>
+      <router-link to="/login" v-if="$store.state.member === null">Login</router-link>
+      <a v-else @click="logout">Logout</a>
     </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+export default {
+  name: "app",
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("login");
     }
+  },
+  created() {
+    if (
+      this.$store.state.member === null &&
+      this.$router.currentRoute.name === "member"
+    )
+      this.$router.push("login");
   }
-}
-</style>
+};
+</script>
