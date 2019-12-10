@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
@@ -21,7 +22,14 @@ const routes = [
   {
     path: '/member',
     name: 'member',
-    component: Member
+    component: Member,
+    beforeEnter(to, from, next){
+      if (store.state.username) {
+        next();
+      }else {
+        next('/login');
+      }
+    }
   }
 ]
 
