@@ -2,8 +2,8 @@
   <div id="app">
     <div class="navbar">
       <router-link to="/">Home</router-link>
-      <router-link to="/register" v-if="$store.state.member === null">Register</router-link>
-      <router-link to="/login" v-if="$store.state.member === null">Login</router-link>
+      <router-link to="/register" v-if="$store.state.username === null">Register</router-link>
+      <router-link to="/login" v-if="$store.state.username === null">Login</router-link>
       <a v-else @click="logout">Logout</a>
     </div>
     <router-view></router-view>
@@ -21,8 +21,8 @@ export default {
   },
   created() {
     if (
-      this.$store.state.member === null &&
-      this.$router.currentRoute.name === "member"
+      this.$store.state.username === null &&
+      this.$router.currentRoute.name === "username"
     )
       this.$router.push("login");
   }

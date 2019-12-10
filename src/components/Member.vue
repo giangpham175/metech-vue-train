@@ -1,5 +1,5 @@
 <template>
-  <div class="member">
+  <div class="user">
     <div v-if="username ">
       username: {{ username }}
       <br />
@@ -15,7 +15,10 @@
 
 <script>
 export default {
-  name: "Member",
+  name: "username",
+  created() {
+    this.$store.dispatch("getJobs");
+  },
   computed: {
     username() {
       return this.$store.state.username;
